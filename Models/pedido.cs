@@ -1,23 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAppForm.Models
 {
     public class pedido
     {
-        [Key]
-        public int productoId { get; set; }
+        [Key] public int pedidoId { get; set; }
 
-        [Required, MaxLength(150)]
-        public string nombre { get; set; }
-
-        [Required, MaxLength(150)]
-        public string descripcion { get; set; }
+        [Required, DataType(DataType.DateTime)]
+        public DateTime fecha { get; set; } = DateTime.Now;
 
         [Required]
-        public decimal precio { get; set; }
+        public decimal total { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(50)] public string estado { get; set; }
+
+        [Required] public int clienteId { get; set; }
+        [Required] public int productoId { get; set; }
+
         public string AdicionadoPor { get; set; }
 
         [Required, DataType(DataType.DateTime)]
@@ -25,26 +26,26 @@ namespace WebAppForm.Models
 
         [MaxLength(50)]
         public string ModificadoPor { get; set; }
-        
+
         [DataType(DataType.DateTime)]
         public DateTime? FechaModificacion { get; set; }
 
         public pedido()
         {
-            
+
         }
-   
-        public pedido(int productoId, string nombre, string descripcion, decimal precio, string adicionadoPor, string modificadoPor, DateTime? fechaModificacion)
+
+        public pedido(int pedidoId, decimal total, string estado, int clienteId, int productoId, string adicionadoPor, string modificadoPor, DateTime? fechaModificacion)
         {
+            this.pedidoId = pedidoId;
+            this.total = total;
+            this.estado = estado;
+            this.clienteId = clienteId;
             this.productoId = productoId;
-            this.nombre = nombre;
-            this.descripcion = descripcion;
-            this.precio = precio;
             AdicionadoPor = adicionadoPor;
             ModificadoPor = modificadoPor;
-            FechaModificacion = fechaModificacion;  
+            FechaModificacion = fechaModificacion;
         }
 
     }
 }
-

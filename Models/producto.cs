@@ -5,19 +5,20 @@ namespace WebAppForm.Models
 {
     public class producto
     {
-        [Key] public int pedidoId { get; set; }
 
-        [Required, DataType(DataType.DateTime)]
-        public DateTime fecha { get; set; } = DateTime.Now;
+        [Key]
+        public int productoId { get; set; }
+
+        [Required, MaxLength(150)]
+        public string nombre { get; set; }
+
+        [Required, MaxLength(150)]
+        public string descripcion { get; set; }
 
         [Required]
-        public decimal total { get; set; }
+        public decimal precio { get; set; }
 
-        [Required, MaxLength(50)] public string estado { get; set; }
-
-        [Required] public int clienteId { get; set; }
-        [Required] public int productoId { get; set; }
-
+        [Required, MaxLength(50)]
         public string AdicionadoPor { get; set; }
 
         [Required, DataType(DataType.DateTime)]
@@ -31,19 +32,18 @@ namespace WebAppForm.Models
 
         public producto()
         {
-            
+
         }
 
-        public producto(int pedidoId, decimal total, string estado, int clienteId, int productoId, string adicionadoPor, string modificadoPor, DateTime? fechaModificacion)
+        public producto(int productoId, string nombre, string descripcion, decimal precio, string adicionadoPor, string modificadoPor, DateTime? fechaModificacion)
         {
-            this.pedidoId = pedidoId;
-            this.total = total;
-            this.estado = estado;
-            this.clienteId = clienteId;
             this.productoId = productoId;
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.precio = precio;
             AdicionadoPor = adicionadoPor;
             ModificadoPor = modificadoPor;
-            FechaModificacion = fechaModificacion;  
+            FechaModificacion = fechaModificacion;
         }
     }
 
