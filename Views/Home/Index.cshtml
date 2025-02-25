@@ -1,8 +1,73 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Bienvenido a Pedidos";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="targaryen-theme">
+    <h1>🔥 Bienvenido a Pedidos 🔥</h1>
+    <p>Administra clientes, productos y pedidos de manera sencilla.</p>
+
+    <!-- Imagen centrada -->
+    <div class="image-container">
+        <img src="~/img/targaryen_logo.png" alt="Casa Targaryen" class="targaryen-logo">
+    </div>
+
+    <!-- Botones de navegación -->
+    <div class="links-container">
+        <a asp-controller="Clientes" asp-action="Index" class="btn targaryen-btn">Clientes</a>
+        <a asp-controller="Productos" asp-action="Index" class="btn targaryen-btn">Productos</a>
+        <a asp-controller="Pedidos" asp-action="Index" class="btn targaryen-btn">Pedidos</a>
+    </div>
 </div>
+
+<style>
+    .targaryen-theme {
+        text-align: center;
+        background-color: black;
+        color: #ff4500;
+        padding: 50px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-family: 'Garamond', serif;
+        font-size: 2.5rem;
+        color: red;
+        text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.6);
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .targaryen-logo {
+        width: 200px; /* Ajusta el tamaño de la imagen */
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    }
+
+    .links-container {
+        margin-top: 20px;
+    }
+
+    .targaryen-btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        background-color: red;
+        border: 2px solid #ff4500;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .targaryen-btn:hover {
+            background-color: #ff4500;
+            border-color: gold;
+        }
+</style>
