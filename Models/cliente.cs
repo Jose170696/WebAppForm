@@ -20,14 +20,6 @@ namespace WebAppForm.Models
         [MaxLength(50)]
         public string ModificadoPor { get; set; }
         [DataType(DataType.DateTime)]
-        public DateTime? FechaModificacion { get; set; }
-
-        public cliente()
-        {
-
-        }
-
-
-     
+        public DateTime? FechaModificacion { get; set; }     
     }
 }

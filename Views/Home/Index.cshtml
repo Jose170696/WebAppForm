@@ -1,73 +1,42 @@
-﻿@{
-    ViewData["Title"] = "Bienvenido a Pedidos";
-}
+﻿@model cliente;
 
-<div class="targaryen-theme">
-    <h1>🔥 Bienvenido a Pedidos 🔥</h1>
-    <p>Administra clientes, productos y pedidos de manera sencilla.</p>
+<div>
+    <h1>Agregar Cliente</h1>
 
-    <!-- Imagen centrada -->
-    <div class="image-container">
-        <img src="~/img/targaryen_logo.png" alt="Casa Targaryen" class="targaryen-logo">
-    </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 
-    <!-- Botones de navegación -->
-    <div class="links-container">
-        <a asp-controller="cliente" asp-action="Index" class="btn targaryen-btn">Clientes</a>
-        <a asp-controller="producto" asp-action="Index" class="btn targaryen-btn">Productos</a>
-        <a asp-controller="pedido" asp-action="Index" class="btn targaryen-btn">Pedidos</a>
-    </div>
+    <form asp-action="Submit" method="post">
+        <div>
+            <label>Nombre:</label>
+            <input asp-for="nombre" class="form-control" />
+            <span asp-validation-for="nombre" class="text-danger"></span>
+        </div>
+        <div>
+            <label>Correo:</label>
+            <input asp-for="email" class="form-control" />
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+        <div>
+            <label>Teléfono:</label>
+            <input asp-for="telefono" class="form-control" />
+            <span asp-validation-for="telefono" class="text-danger"></span>
+        </div>
+        <div>
+            <label>Dirección:</label>
+            <input asp-for="direccion" class="form-control" />
+            <span asp-validation-for="direccion" class="text-danger"></span>
+        </div>
+        <div>
+            <label>Adicionado Por:</label>
+            <input asp-for="AdicionadoPor" class="form-control" />
+            <span asp-validation-for="AdicionadoPor" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Cliente</button>
+    </form>
 </div>
-
-<style>
-    .targaryen-theme {
-        text-align: center;
-        background-color: black;
-        color: #ff4500;
-        padding: 50px;
-        border-radius: 10px;
-    }
-
-    h1 {
-        font-family: 'Garamond', serif;
-        font-size: 2.5rem;
-        color: red;
-        text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.6);
-    }
-
-    .image-container {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-    }
-
-    .targaryen-logo {
-        width: 200px; /* Ajusta el tamaño de la imagen */
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-    }
-
-    .links-container {
-        margin-top: 20px;
-    }
-
-    .targaryen-btn {
-        display: inline-block;
-        margin: 10px;
-        padding: 15px 25px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: white;
-        background-color: red;
-        border: 2px solid #ff4500;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-
-        .targaryen-btn:hover {
-            background-color: #ff4500;
-            border-color: gold;
-        }
-</style>

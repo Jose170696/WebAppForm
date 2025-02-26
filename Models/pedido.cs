@@ -1,24 +1,28 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebAppForm.Models
 {
     public class pedido
     {
-        [Key] public int pedidoId { get; set; }
+        public int pedidoId { get; set; }
 
         [Required, DataType(DataType.DateTime)]
         public DateTime fecha { get; set; } = DateTime.Now;
 
         [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "El total debe ser un valor positivo.")]
         public decimal total { get; set; }
 
-        [Required, MaxLength(50)] public string estado { get; set; }
+        [Required, MaxLength(50)]
+        public string estado { get; set; }
 
-        [Required] public int clienteId { get; set; }
-        [Required] public int productoId { get; set; }
+        [Required]
+        public int clienteId { get; set; }
 
+        [Required]
+        public int productoId { get; set; }
+
+        [Required, MaxLength(50)]
         public string AdicionadoPor { get; set; }
 
         [Required, DataType(DataType.DateTime)]
@@ -30,22 +34,8 @@ namespace WebAppForm.Models
         [DataType(DataType.DateTime)]
         public DateTime? FechaModificacion { get; set; }
 
-        public pedido()
-        {
-
-        }
-
-        public pedido(int pedidoId, decimal total, string estado, int clienteId, int productoId, string adicionadoPor, string modificadoPor, DateTime? fechaModificacion)
-        {
-            this.pedidoId = pedidoId;
-            this.total = total;
-            this.estado = estado;
-            this.clienteId = clienteId;
-            this.productoId = productoId;
-            AdicionadoPor = adicionadoPor;
-            ModificadoPor = modificadoPor;
-            FechaModificacion = fechaModificacion;
-        }
-
+        // Relaciones
+        public cliente cliente { get; set; }
+        public producto producto { get; set; }
     }
 }

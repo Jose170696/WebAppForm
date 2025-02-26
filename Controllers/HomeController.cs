@@ -7,12 +7,34 @@ namespace WebAppForm.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private AccesoDatos _acceso;
+        public HomeController(AccesoDatos acceso)
         {
-            _logger = logger;
+            _acceso = acceso;
         }
 
+        [HttpPost]
+        public IActionResult Submit(cliente modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Index", modelo);
+            }
+
+            try
+            {
+                _acceso.InsertarCliente(modelo);
+
+                //si al agregar el cliente es exitoso
+                TempData["SuccessMessage"] = "Tu cliente se guardó con éxito.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["SuccessMessage"] = "Tu cliente no se guardó." + ex.Message;
+                return View("Index", modelo);
+            }
+        }
         public IActionResult Index()
         {
             return View();
