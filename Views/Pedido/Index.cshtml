@@ -13,6 +13,7 @@
         </a>
     </div>
 
+    <!-- Mensajes de éxito o error -->
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,6 +30,7 @@
         </div>
     }
 
+    <!-- Tabla de pedidos -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered shadow-sm">
             <thead class="table-dark">
@@ -39,22 +41,38 @@
                     <th><i class="fas fa-user"></i> Cliente ID</th>
                     <th><i class="fas fa-box"></i> Producto ID</th>
                     <th><i class="fas fa-user-edit"></i> Adicionado Por</th>
+                    <th><i class="fas fa-edit"></i> Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var pedido in Model)
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var pedido in Model)
+                    {
+                        <tr>
+                            <td>@pedido.fecha.ToString("dd/MM/yyyy")</td>
+                            <td>@pedido.total.ToString("C")</td>
+                            <td>
+                                <span class="badge @(pedido.estado == "Completado" ? "bg-success" : pedido.estado == "Pendiente" ? "bg-warning" : "bg-danger")">
+                                    @pedido.estado
+                                </span>
+                            </td>
+                            <td>@pedido.clienteId</td>
+                            <td>@pedido.productoId</td>
+                            <td>@pedido.AdicionadoPor</td>
+                            <td>
+                                <!-- Botón para cambiar el estado -->
+                                <a asp-action="CambiarEstado" asp-route-id="@pedido.pedidoId" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-sync-alt"></i> Cambiar Estado
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@pedido.fecha.ToString("dd/MM/yyyy")</td>
-                        <td>@pedido.total.ToString("C")</td>
-                        <td>
-                            <span class="badge @(pedido.estado == "Completado" ? "bg-success" : pedido.estado == "Pendiente" ? "bg-warning" : "bg-danger")">
-                                @pedido.estado
-                            </span>
-                        </td>
-                        <td>@pedido.clienteId</td>
-                        <td>@pedido.productoId</td>
-                        <td>@pedido.AdicionadoPor</td>
+                        <td colspan="7" class="text-center">No hay pedidos disponibles.</td>
                     </tr>
                 }
             </tbody>

@@ -37,7 +37,7 @@ FechaModificacion DATETIME default getdate()
 CONSTRAINT FK_Cliente FOREIGN KEY (clienteId) REFERENCES cliente(clienteId),
 CONSTRAINT FK_Producto FOREIGN KEY (productoId) REFERENCES producto(productoId)
 );
-
+GO
 ---------------------Procedimientos Almacenados----------------------------
 
 -- Insertar Cliente
@@ -216,3 +216,18 @@ BEGIN
     SELECT pedidoId, fecha, total, estado, clienteId, productoId, AdicionadoPor
     FROM pedido;
 END;
+GO
+---Procedimientos Almacenados para Obtener el Pedido por el ID---
+CREATE PROCEDURE spObtenerPedidoPorId
+    @PedidoId INT
+AS
+BEGIN
+    SELECT 
+        PedidoId, 
+        Total, 
+        Estado, 
+        ModificadoPor
+    FROM Pedido
+    WHERE PedidoId = @PedidoId;
+END;
+GO

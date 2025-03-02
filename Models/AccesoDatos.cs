@@ -185,5 +185,59 @@ namespace WebAppForm.Models
             }
             return pedidos;
         }
+
+        public pedido ObtenerPedidoPorId(int id)
+        {
+            using (SqlConnection con = new SqlConnection(_conexion))
+            {
+                string query = "EXEC spObtenerPedidoPorId @PedidoId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@PedidoId", id);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Console.WriteLine($"Pedido encontrado: PedidoId={reader["pedidoId"]}, Total={reader["total"]}");
+                            return new pedido
+                            {
+                                pedidoId = (int)reader["PedidoId"],
+                                total = (decimal)reader["Total"],
+                                estado = reader["Estado"].ToString(),
+                                ModificadoPor = reader["ModificadoPor"].ToString()
+                            };
+                        }
+                        else
+                        {
+                            Console.WriteLine($"No se encontró ningún pedido con PedidoId={id}");
+                        }
+                    }
+                }
+            }
+
+            return null; // Retorna null si no se encuentra el pedido
+        }
+
+        public void ActualizarEstadoPedido(int id, string nuevoEstado)
+        {
+            using (SqlConnection con = new SqlConnection(_conexion))
+            {
+                string query = "EXEC spActualizarPedido @PedidoId, @Total, @Estado, @ModificadoPor";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    var pedido = ObtenerPedidoPorId(id); // Obtener el pedido actual
+                    cmd.Parameters.AddWithValue("@PedidoId", id);
+                    cmd.Parameters.AddWithValue("@Total", pedido.total); // Mantener el total actual
+                    cmd.Parameters.AddWithValue("@Estado", nuevoEstado);
+                    cmd.Parameters.AddWithValue("@ModificadoPor", "UsuarioSistema"); // Puedes personalizar esto
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
