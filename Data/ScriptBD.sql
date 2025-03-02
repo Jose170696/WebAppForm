@@ -192,3 +192,27 @@ BEGIN
     INNER JOIN Producto PR ON P.ProductoId = PR.ProductoId;
 END;
 GO
+
+---Procedimientos Almacenados para Obtener Listas de cada modelo---
+CREATE PROCEDURE spObtenerClientes
+AS
+BEGIN
+    SELECT clienteId, nombre, email, telefono, direccion, AdicionadoPor
+    FROM cliente;
+END;
+GO
+
+CREATE PROCEDURE spObtenerProductos
+AS
+BEGIN
+    SELECT productoId, nombre, descripcion, precio, AdicionadoPor
+    FROM producto;
+END;
+GO
+
+CREATE PROCEDURE spObtenerPedidos
+AS
+BEGIN
+    SELECT pedidoId, fecha, total, estado, clienteId, productoId, AdicionadoPor
+    FROM pedido;
+END;

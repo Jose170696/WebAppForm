@@ -1,0 +1,63 @@
+﻿@model List<WebAppForm.Models.pedido>
+
+@{
+    ViewData["Title"] = "Lista de Pedidos";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary"><i class="fas fa-receipt"></i> Lista de Pedidos</h2>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus-circle"></i> Agregar Pedido
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th><i class="fas fa-calendar-alt"></i> Fecha</th>
+                    <th><i class="fas fa-dollar-sign"></i> Total</th>
+                    <th><i class="fas fa-info-circle"></i> Estado</th>
+                    <th><i class="fas fa-user"></i> Cliente ID</th>
+                    <th><i class="fas fa-box"></i> Producto ID</th>
+                    <th><i class="fas fa-user-edit"></i> Adicionado Por</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pedido in Model)
+                {
+                    <tr>
+                        <td>@pedido.fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@pedido.total.ToString("C")</td>
+                        <td>
+                            <span class="badge @(pedido.estado == "Completado" ? "bg-success" : pedido.estado == "Pendiente" ? "bg-warning" : "bg-danger")">
+                                @pedido.estado
+                            </span>
+                        </td>
+                        <td>@pedido.clienteId</td>
+                        <td>@pedido.productoId</td>
+                        <td>@pedido.AdicionadoPor</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

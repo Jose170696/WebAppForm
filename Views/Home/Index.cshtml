@@ -1,42 +1,157 @@
-﻿@model cliente;
+﻿@{
+    ViewData["Title"] = "House Targaryen - Fire and Blood";
+}
 
-<div>
-    <h1>Agregar Cliente</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success">
-            @TempData["SuccessMessage"]
-        </div>
-    }
+    <style>
+        /* Fuente estilo medieval */
+        body {
+            background-image: url('/img/targaryen_logo.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'MedievalSharp', cursive;
+            color: #fff;
+        }
 
-    <form asp-action="Submit" method="post">
-        <div>
-            <label>Nombre:</label>
-            <input asp-for="nombre" class="form-control" />
-            <span asp-validation-for="nombre" class="text-danger"></span>
-        </div>
-        <div>
-            <label>Correo:</label>
-            <input asp-for="email" class="form-control" />
-            <span asp-validation-for="email" class="text-danger"></span>
-        </div>
-        <div>
-            <label>Teléfono:</label>
-            <input asp-for="telefono" class="form-control" />
-            <span asp-validation-for="telefono" class="text-danger"></span>
-        </div>
-        <div>
-            <label>Dirección:</label>
-            <input asp-for="direccion" class="form-control" />
-            <span asp-validation-for="direccion" class="text-danger"></span>
-        </div>
-        <div>
-            <label>Adicionado Por:</label>
-            <input asp-for="AdicionadoPor" class="form-control" />
-            <span asp-validation-for="AdicionadoPor" class="text-danger"></span>
-        </div>
+        /* Contenedor principal con fondo semitransparente */
+        .main-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 50px;
+            border-radius: 15px;
+            margin-top: 100px;
+            border: 3px solid #8b0000;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.8);
+        }
 
-        <button type="submit" class="btn btn-primary">Guardar Cliente</button>
-    </form>
-</div>
+        h2 {
+            color: #e1e1e1;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 3px 3px 10px #8b0000;
+        }
+
+        h3 {
+            color: #ff4500;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px #8b0000;
+        }
+
+        .subtitle {
+            color: #f5f5f5;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: -10px;
+            font-style: italic;
+        }
+
+        .col-md-4 {
+            margin-bottom: 20px;
+        }
+
+        /* Botones temáticos */
+        .btn {
+            font-size: 1.2rem;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn-dragon {
+            background-color: #8b0000;
+            color: white;
+            border: 2px solid #ff4500;
+        }
+
+            .btn-dragon:hover {
+                background-color: #ff4500;
+                border: 2px solid #8b0000;
+            }
+
+        .btn-fire {
+            background-color: #ff4500;
+            color: white;
+            border: 2px solid #8b0000;
+        }
+
+            .btn-fire:hover {
+                background-color: #8b0000;
+                border: 2px solid #ff4500;
+            }
+
+        .btn-blood {
+            background-color: #550000;
+            color: white;
+            border: 2px solid #ff0000;
+        }
+
+            .btn-blood:hover {
+                background-color: #ff0000;
+                border: 2px solid #550000;
+            }
+
+        /* Iconos personalizados */
+        .icon {
+            margin-right: 10px;
+        }
+
+        /* Efecto de brillo en los títulos */
+        .fire-glow {
+            text-shadow: 0px 0px 20px rgba(255, 69, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <h2><i class="fas fa-dragon"></i> House Targaryen</h2>
+        <p class="subtitle fire-glow">🔥 Fire and Blood 🔥</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h3><i class="fas fa-user-astronaut"></i> Clientes</h3>
+                <a href="@Url.Action("Index", "Cliente")" class="btn btn-dragon">
+                    <i class="fas fa-users icon"></i> Ver Clientes
+                </a>
+                <a href="@Url.Action("Create", "Cliente")" class="btn btn-outline-light mt-2">
+                    <i class="fas fa-user-plus icon"></i> Agregar Cliente
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <h3><i class="fas fa-crown"></i> Productos</h3>
+                <a href="@Url.Action("Index", "Producto")" class="btn btn-fire">
+                    <i class="fas fa-box icon"></i> Ver Productos
+                </a>
+                <a href="@Url.Action("Create", "Producto")" class="btn btn-outline-light mt-2">
+                    <i class="fas fa-plus-square icon"></i> Agregar Producto
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <h3><i class="fas fa-scroll"></i> Pedidos</h3>
+                <a href="@Url.Action("Index", "Pedido")" class="btn btn-blood">
+                    <i class="fas fa-list-alt icon"></i> Ver Pedidos
+                </a>
+                <a href="@Url.Action("Create", "Pedido")" class="btn btn-outline-light mt-2">
+                    <i class="fas fa-file-signature icon"></i> Agregar Pedido
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

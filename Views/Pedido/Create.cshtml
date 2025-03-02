@@ -1,0 +1,69 @@
+﻿@model WebAppForm.Models.pedido
+
+@{
+    ViewData["Title"] = "Agregar Pedido";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-primary text-center mb-4"><i class="fas fa-shopping-cart"></i> Agregar Pedido</h2>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form asp-action="Create" method="post">
+           
+            <div class="mb-3">
+                <label for="total" class="form-label"><i class="fas fa-dollar-sign"></i> Total:</label>
+                <input type="number" step="0.01" class="form-control" id="total" name="total" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="estado" class="form-label"><i class="fas fa-info-circle"></i> Estado:</label>
+                <select class="form-control" id="estado" name="estado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Completado">Completado</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="clienteId" class="form-label"><i class="fas fa-user"></i> Cliente ID:</label>
+                <input type="number" class="form-control" id="clienteId" name="clienteId" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="productoId" class="form-label"><i class="fas fa-box"></i> Producto ID:</label>
+                <input type="number" class="form-control" id="productoId" name="productoId" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="AdicionadoPor" class="form-label"><i class="fas fa-user-tag"></i> Adicionado Por:</label>
+                <input type="text" class="form-control" id="AdicionadoPor" name="AdicionadoPor" required />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Guardar Pedido
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
