@@ -172,6 +172,7 @@ namespace WebAppForm.Models
                         {
                             pedidos.Add(new pedido
                             {
+                                pedidoId = Convert.ToInt32(dr["PedidoId"]),
                                 fecha = Convert.ToDateTime(dr["Fecha"]),
                                 total = Convert.ToDecimal(dr["Total"]),
                                 estado = dr["Estado"].ToString(),
